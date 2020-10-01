@@ -4,14 +4,12 @@ const express=require('express');
 // const { getMaxListeners } = require('process');
 const app = express();
 app.use(express.json());
-let nextuser=0;
-let nextcart=0;
-let ItemId=0;
+
 
 let UserList=[];
 const sampleUser=
     {   //size of array
-        "UserId": 0,
+        "UserId": UserList.length,
         "FirstName": "SampleFirst",
         "LastName": "SampleLast",
         "Email": "SampleEmail",
@@ -25,25 +23,22 @@ const sampleUser=
 let CartList=[];
 const sampleCart=
     {
-        "CartId": 0,
-        "UserId": 0,
-        "ItemId": 0
+        "CartId": CartList.length,
+        "UserId": UserList.length,
+        //"ItemId": 0
 
     }
 
 
 let Cart_ItemList=[];
 const sampleItem=
-    {   CartId: 0,
-        ItemId: 0,
+    {   CartId: CartList.length,
+        ItemId: Cart_ItemList.length,
         Item_quan: "SampleQuan",
         Item_Name: "SampleName"
     }
 
-let Store_ItemList=[{"Description":"Coke",ItemId:1000,Item_quan: 10},
-    {"Description":"Pepsi",ItemId:1100,Item_quan: 10},
-    {"Description":"Sprite",ItemId:1110,Item_quan: 10},
-    {"Description":"Dr.Pepper",ItemId:1111,Item_quan: 10}];
+let Store_ItemList=[];
 const sampleStore=
     {
         StoreItemId: "SampleStore"
@@ -52,15 +47,11 @@ const sampleStore=
 
 
 
-//Gets the user info given the id
-app.get('/user',(req,res)=>{
-    res.send(UserList)
-})
 //Creates a new user
 app.post('/user',(req,res)=>{
     
     let newUser = {};
-    newUser.UserId=nextuser++
+    newUser.UserId=UserList.length
     newUser.FirstName= req.param("FirstName")
     newUser.LastName=req.param("LastName")
     newUser.Email=req.param("Email")
@@ -68,15 +59,22 @@ app.post('/user',(req,res)=>{
     UserList.push(newUser)
     res.send(newUser)
 })
+//Gets the user info given the id
+app.get('/user/:UserId',(req,res)=>{
+    const foundUser=UserList.find((User)=>
+    {return User.UserId==req.params.UserId})
+    res.send(foundUser?foundUser:404)
+})
 
-
+//post a cart
 app.post('/cart',(req,res)=>
 {
     let newCart = {};
-    newCart.CartId=nextcart++
+    newCart.CartId=CartList.length
     CartList.push(newCart)
     res.send(newCart)
 })
+//get user's cart
 app.get('/user/:UserId/cart',(req,res)=>
 {
     const foundCart = CartList.filter((Cart) => {
@@ -85,6 +83,7 @@ app.get('/user/:UserId/cart',(req,res)=>
     res.send(foundCart)
 })
 
+//delete the whole cart
 app.delete('/user/:UserId/cart',(req,res)=>
 {
     const foundCartIndex = CartList.indexOf(req.params.UserId);
@@ -92,10 +91,11 @@ app.delete('/user/:UserId/cart',(req,res)=>
     res.send(foundCart);
 })
 
+//post new items to the cart
 app.post('/cart/:CartId/cartItem',(req,res)=>
 {
     let newItem = {};
-    newItem.ItemId=ItemId++
+    newItem.ItemId=Cart_ItemList.length
     newItem.Item_quan=req.param("Item_quan")
     newItem.Item_Name=req.param("Item_Name")
     Cart_ItemList.push(newItem)
