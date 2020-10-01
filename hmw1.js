@@ -21,13 +21,7 @@ const sampleUser=
     }
 
 
-// let CartList=[];
-// const sampleCart=
-//     {
-//
-//         "CartId":nextuser
-//
-//     }
+
 let CartList=[];
 const sampleCart=
     {
@@ -35,20 +29,8 @@ const sampleCart=
         "UserId": 0,
         "ItemId": 0
 
-        // "Cart":  [{"Description":"Coke",ItemId:0,Item_quan: 1},
-        // {"Description":"Pepsi",ItemId:1,Item_quan: 1}]
-        //let CartList = {};
-        //"CartId":"nextuser";
-        //CartList.CartID = CartList.length
-        //CartList.UserId = req.param.UserId
-
     }
-// const sampleitems=
-//     {
-//         "Description":"samplename",
-//         "ItemId":"sampleId",
-//         "Item_quan": "samplequan"
-// }
+
 
 let Cart_ItemList=[];
 const sampleItem=
@@ -76,10 +58,7 @@ app.get('/user',(req,res)=>{
 })
 //Creates a new user
 app.post('/user',(req,res)=>{
-    // req.body.User.UserId=nextuser++
-    // UserList.push(req.body.User)
-    // res.send(req.body.User)
-
+    
     let newUser = {};
     newUser.UserId=nextuser++
     newUser.FirstName= req.param("FirstName")
@@ -90,9 +69,7 @@ app.post('/user',(req,res)=>{
     res.send(newUser)
 })
 
-// app.get('/cart',(req,res)=>{
-//     res.send(CartList)
-// })
+
 app.post('/cart',(req,res)=>
 {
     let newCart = {};
@@ -125,71 +102,11 @@ app.post('/cart/:CartId/cartItem',(req,res)=>
     res.send(newItem)
 })
 
-app.get('/StoreItem',(req,res)=>
-{
-    res.send(Store_ItemList)
-})
-// app.delete('/cart', (req, res) =>
-// {
-//     const foundItemIndex = CartList.indexOf(req.params.ItemId);
-//     const foundItem = CartList.splice(foundItemIndex, 1);
-//     res.send(foundItem ? foundItem : 404);
-// });
-// app.post('/cart',(req,res)=>{
-//     // req.body.User.UserId=nextuser++
-//     // UserList.push(req.body.User)
-//     // res.send(req.body.User)
-//
-//     let newItem = {};
-//     newItem.FirstName= req.param("FirstName")
-//     newUser.LastName=req.param("LastName")
-//     newUser.Email=req.param("Email")
-//     //newUser.Cart=req.param("Cart")
-//     UserList.push(newUser)
-//     res.send(newUser)
-// })
 
-// app.post('/user',(req,res)=>{
-//     UserList.push(req.body.User)
-//     res.send(UserList)
-// })
-//Gets the user’s cart
-
-
-//delete cart
-// app.delete('/cart',(req,res)=>{
-//     const
-// })
-
-
-// //Add a new item to the cart
-// app.post('/cart/:CartId/cartItem',(req,res)=>{
-//     // Cart_ItemList.push(req.body.cart)
-//     UserList.find(User=>User.UserId === req.param.CartId)
-//     res.send(req.param.CartId)
-// })
-// // app.put('/Item:id',(req,res)=>{
-// //     let founditem= Cart_ItemList.splice(req.params.id,1,req.body);
-// //     res.send(founditem || 404);
-// // })
-// //delete item
-//
-//
-//
-// //get all details
-// app.get('/store',(req,res)=>{
-//     res.send(Store_ItemList)
-// })
-// //Get all items that satisfy the regular expression query
-// app.get('/store',(req,res)=>{
-//     res.send(Store_ItemList.filter((store)=>{
-//         return store.item===req.query.item;
-//     }))
-// })
 
 UserList.push(sampleUser);
 CartList.push(sampleCart)
 console.log(CartList)
 Cart_ItemList.push(sampleItem)
-Store_ItemList.push(sampleStore)
+//Store_ItemList.push(sampleStore)
 app.listen(8080);
