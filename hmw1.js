@@ -5,10 +5,16 @@ const express=require('express');
 const app = express();
 app.use(express.json());
 
-
+let CartList=[];
 let UserList=[];
+let Cart_ItemList=[];
+let Store_ItemList=[];
+
 const sampleUser=
     {   //size of array
+        
+         CartList:[],
+
         "UserId": UserList.length,
         "FirstName": "SampleFirst",
         "LastName": "SampleLast",
@@ -20,7 +26,6 @@ const sampleUser=
 
 
 
-let CartList=[];
 const sampleCart=
     {
         "CartId": CartList.length,
@@ -30,7 +35,6 @@ const sampleCart=
     }
 
 
-let Cart_ItemList=[];
 const sampleItem=
     {   CartId: CartList.length,
         ItemId: Cart_ItemList.length,
@@ -38,7 +42,6 @@ const sampleItem=
         Item_Name: "SampleName"
     }
 
-let Store_ItemList=[];
 const sampleStore=
     {
         StoreItemId: "SampleStore"
